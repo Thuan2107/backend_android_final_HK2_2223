@@ -12,12 +12,28 @@ const cors = require("cors");
 
 dotenv.config();
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("DB Connection Successfull!"))
-  .catch((err) => {
+// mongoose
+//   .connect(process.env.MONGO_URL)
+//   .then(() => console.log("DB Connection Successfull!"))
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+const database = module.exports = () => {
+  const connectionParams = {
+    useNewUrlParser : true,
+    useUnifiedTopology: true,
+  }
+
+  try{
+    mongoose.connect('mongodb+srv://mtnguyen2107:npOe5fPBNehXm0sb@cluster0.pnavq0z.mongodb.net/androidFinal?retryWrites=true&w=majority', connectionParams)
+    console.log("Connect DB Successfull");
+  }catch(err){
     console.log(err);
-  });
+  }
+}
+
+database();
 
 app.use(cors());
 app.use(express.json());
